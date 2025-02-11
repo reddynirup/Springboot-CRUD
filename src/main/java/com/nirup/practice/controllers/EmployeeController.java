@@ -3,6 +3,7 @@ package com.nirup.practice.controllers;
 import com.nirup.practice.dto.EmployeeDTO;
 //import com.nirup.practice.entities.EmployeeEntity;
 //import com.nirup.practice.repositories.EmployeeRepository;
+import com.nirup.practice.exceptions.ResourceNotFoundException;
 import com.nirup.practice.services.EmployeeService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -39,7 +40,7 @@ public class EmployeeController {
         Optional<EmployeeDTO> employeeDTO=employeeService.getEmployeeById(id);
         return employeeDTO
                 .map(employeeDTO1 -> ResponseEntity.ok(employeeDTO1))
-                .orElseThrow(()-> new NoSuchElementException("Employee Not Found"));
+                .orElseThrow(()-> new ResourceNotFoundException("Employee Not Found with ID: "+id));
     }
 
 //    @ExceptionHandler(NoSuchElementException.class)
